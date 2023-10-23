@@ -31,7 +31,7 @@ switch (vlak.teloVlaku.length) {
             pocetVagonu = "moc";
             break;
     }
-    console.log("Vlak má " + pocetVagonu + "vagonu pro osoby.");
+    console.log("Vlak má " + pocetVagonu + " vagony pro osoby.");
 
     var kapacita = 0;
 
@@ -39,7 +39,7 @@ switch (vlak.teloVlaku.length) {
         kapacita += vlak.teloVlaku[index].typ === "Jidelni vagon" ? 0 : vlak.teloVlaku[index].capacity;
     }
 
-    console.log("kapacita vlaku je" + kapacita+ "osob")
+    console.log("kapacita vlaku je " + kapacita + " osob")
 
     console.log(vlak.lokomotiva);
     if (vlak.postovniVagon) {
