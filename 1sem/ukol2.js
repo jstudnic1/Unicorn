@@ -13,6 +13,8 @@ function decimalToHexadecimal (decimalValue) {
     if (decimalValue < 0)
         isNegative = true;
 
+    decimalValueCopy = Math.abs(decimalValueCopy);
+
     while (decimalValueCopy !== 0){
         let remainder = decimalValueCopy % 16;
         const hexDigit = hexDigits[remainder];
@@ -20,11 +22,11 @@ function decimalToHexadecimal (decimalValue) {
         decimalValueCopy = Math.floor(decimalValueCopy/16);
     }
 
+    hexadecimal = hexadecimal.split("").reverse().join("");
+
     if (isNegative)
         hexadecimal = "-" + hexadecimal;
-    
-    hexadecimal = hexadecimal.split("").reverse().join("")
-
+        
     return(hexadecimal);
 }
 
