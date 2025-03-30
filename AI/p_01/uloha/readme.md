@@ -1,56 +1,56 @@
-# Game of Life - 1D
+# 🧬 Game of Life – 1D
 
-This project is a simple implementation of a one-dimensional cellular automaton inspired by Conway's Game of Life. The simulation works on a single row of cells where each cell can be either alive or dead. Through a series of iterations, the state of each cell is updated based on the number of alive neighbors around it.
+Tento projekt je jednoduchou implementací jednorozměrného celulárního automatu inspirovaného **Conwayovou Hrou života**. Simulace probíhá na jednom řádku buněk, kde každá buňka může být buď **živá**, nebo **mrtvá**. V průběhu několika iterací se stav každé buňky aktualizuje podle předem definovaných pravidel.
 
-## Overview
+---
 
-In this version of the Game of Life, the evolution of the system is governed by custom rules:
+## 🔍 Přehled
 
-- **Cell States:**
-  - **DEAD**: Represented by `*` and printed in blue.
-  - **ALIVE**: Represented by `~` and printed in red.
+### 🧱 Stavy buněk
+- **MRTVÁ**: reprezentována znakem ` ` (mezera), zobrazuje se **modře**.
+- **ŽIVÁ**: reprezentována znakem `█`, zobrazuje se **zeleně**.
 
-- **Color Output:**
-  - The simulation uses ANSI escape codes to color the output:
-    - Red for alive cells.
-    - Blue for dead cells.
+### 🎨 Barevný výstup
+Výstup je barevně odlišen pomocí ANSI escape kódů:
+- 🟩 Zelená pro živé buňky
+- ⬜ Šedá pro mrtvé buňky
 
-- **Neighbor Counting:**
-  - Two neighbor counting functions are provided:
-    - `nu_alive_cells`: Counts alive neighbors using a circular array (handles overflow with modulo arithmetic).
-    - `nu_alive_cells_v2`: Counts alive neighbors only within valid indexes (does not wrap around).
-  - By default, `nu_alive_cells_v2` is used in the evolution process.
+### 🧮 Počítání sousedů
+Používá se funkce `count_neighbors`, která počítá **4 okolní buňky** (2 vlevo, 2 vpravo). Buňka sama sebe nezapočítává. Pole není kruhové (necyklí se).
 
-- **Evolution Rules:**
-  - **For an ALIVE cell:**
-    - It survives if the number of alive neighbors is **2** or **4**; otherwise, it dies.
-  - **For a DEAD cell:**
-    - It becomes alive if the number of alive neighbors is **2** or **3**; otherwise, it remains dead.
-    
-- **Recursive Evolution:**
-  - The `step` function recursively updates the state of the row for a specified number of iterations, printing the row at each step.
+---
 
-## How It Works
+## ⚙️ Pravidla evoluce
 
-1. **Initialization:**
-   - The program defines several test cases—each test case is a list representing an initial row of cells.
+- **Živá buňka (`█`)**:
+  - Přežívá, pokud má **2 nebo 4 mrtvé** sousedy.
+  - Jinak **umírá**.
 
-2. **Displaying the Row:**
-   - The `pretty_print` function prints the current state of the row. It uses color coding to differentiate between alive and dead cells.
+- **Mrtvá buňka (` `)**:
+  - Ožívá, pokud má **2 nebo 3 mrtvé** sousedy.
+  - Jinak **zůstává mrtvá**.
 
-3. **Neighbor Calculation:**
-   - Depending on your preference, you can use either neighbor function:
-     - `nu_alive_cells` for a circular (wrap-around) behavior.
-     - `nu_alive_cells_v2` for a non-wrapping version.
-   - Comments in the code indicate how to adjust or swap between these functions for different patterns.
+> 💡 V tomto modelu se sousedé počítají jako **mrtví**, nikoliv živí – pravidla jsou tedy trochu obrácená, ale výsledek působí podobně.
 
-4. **State Update:**
-   - The `step` function applies the evolution rules to each cell based on its number of alive neighbors and recursively processes the row for a given number of iterations.
+---
 
-5. **Execution:**
-   - The `main` function runs through each test case, displaying the evolution of the cellular automaton for 20 iterations.
+## ▶️ Jak to funguje
 
-### 1D game of life
-- input: [DEAD, ALIVE, DEAD, ALIVE, ALIVE, DEAD, DEAD, ALIVE]
-  
-	![Game of Life](../../imgs_for_readme/game_of_life/gameoflife.png)
+1. **Inicializace**
+   - Program definuje seznam testovacích případů – každý představuje jeden řádek buněk.
+
+2. **Zobrazení řádku**
+   - Pomocí funkce `print_row` se stav vykresluje s barevným rozlišením.
+
+3. **Evoluce**
+   - Funkce `update` aktualizuje buňky podle pravidel a vytváří nový stav.
+
+4. **Iterace**
+   - Funkce `main()` spouští evoluci na 20 kroků a zobrazuje každý krok.
+
+---
+
+## 🧪 Ukázka vstupu
+
+```python
+["█", " ", " ", " ", " ", "█", "█", " "]
