@@ -1,48 +1,45 @@
-import random
 import networkx as nx
 import matplotlib.pyplot as plt
-import time
-from collections import defaultdict
+import numpy as np
 
 def readdimacs(filename):
-    file = open(filename, 'r')
-    lines = file.readlines()
-    G = nx.Graph()
-    for line in lines:
-        if line[0] == "e":
-            vs = [int(s) for s in line.split() if s.isdigit()]
-            G.add_edge(vs[0]-1, vs[1]-1)
-    return G
+	"""
+		Načíta graf zo súboru vo formáte DIMACS.
+		Každý riadok začínajúci "e" definuje hranu.
+	"""
+	with open(filename, 'r') as f:
+		lines = f.readlines()
 
-def initial_greedy_coloring(G, k):
-    nodes = list(G.nodes())
-    random.shuffle(nodes)  # náhodně přeházíme pořadí vrcholů
-    coloring = {}
+	Gd = nx.Graph()
+	for line in lines:
+		if line.startswith("e"):
+			vs = [int(s) for s in line.split() if s.isdigit()]
+			# 0-indexovanie: odpočítame 1
+			Gd.add_edge(vs[0]-1, vs[1]-1)
+	return Gd
 
-    for node in nodes:
-        # získáme barvy sousedů
-        neighbor_colors = {coloring.get(neighbor) for neighbor in G.neighbors(node) if neighbor in coloring}
+# bere na vstupu pole barev vrcholu poporade, cislum priradi nahodne barvy a vykresli graf
+def plot(G, cols):
+	rng = np.random.default_rng(12345)  # seed
+	k = np.max(cols)
+	symbols = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F']
+	colmap = ["#"+''.join(rng.choice(symbols, 6)) for i in range(k+1)]
 
-        # vybereme nejnižší volnou barvu
-        for color in range(k):
-            if color not in neighbor_colors:
-                coloring[node] = color
-                break
-        else:
-            # pokud jsou všechny barvy použity, vybereme náhodnou barvu
-            coloring[node] = random.randint(0, k-1)
+	colors = [colmap[c] for c in cols]
 
-    return coloring
+	# Zobrazí legendu s farbami
+	plt.legend(handles=[plt.scatter([], [], c=colmap[i], label=f'Color {i}') for i in range(k+1)])
 
+	# Vykreslí graf s obarvenými vrcholmi
+	nx.draw(G, node_color=colors, with_labels=True)
 
-def compute_conflicts(G, coloring):
-    node_conflicts = defaultdict(int)
-    total_conflicts = 0
+	# Zobrazí text s počtem použitých barev
+	num_used_colors = len(set(cols))
+	plt.title(f"Počet použitých barev: {num_used_colors}")
 
-    for u, v in G.edges():
-        if coloring[u] == coloring[v]:
-            node_conflicts[u] += 1
-            node_conflicts[v] += 1
-            total_conflicts += 1
+	plt.show()
 
-    return node_conflicts, total_conflicts
+def init_graph(path):
+	G = readdimacs(path)
+	print("#vrcholov:", G.number_of_nodes(), ";", "#hran:", G.number_of_edges())
+	return G

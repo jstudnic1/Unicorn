@@ -21,7 +21,7 @@ toolbox.register("population", tools.initRepeat, list, toolbox.individual)
 
 # Definice fitness funkce s nezápornými hodnotami
 def evaluate(individual):
-    # Různorodost terénu - směrodatná odchylka
+    #  směr odchylka
     s_odchylka = np.std(individual)
     # Hladkost terénu
     smoothness = -np.mean(np.abs(np.diff(individual)))
@@ -30,7 +30,7 @@ def evaluate(individual):
 
 # Registrace operátorů
 toolbox.register("mate", tools.cxTwoPoint)
-toolbox.register("mutate", tools.mutUniformInt, low=0, up=1, indpb=0.05)
+toolbox.register("mutate", tools.mutGaussian, mu=0.5, sigma=0.05, indpb=0.2)
 toolbox.register("select", tools.selTournament, tournsize=3)
 toolbox.register("evaluate", evaluate)
 
@@ -52,8 +52,8 @@ def main():
     stats.register("min", np.min)
     stats.register("max", np.max)
     hof = tools.HallOfFame(1)
-    # křížení 50%, mutace 20%, 40 generací
-    cxpb, mutpb, ngen = 0.5, 0.2, 40
+    # křížení 50%, mutace 2%, 100 generací
+    cxpb, mutpb, ngen = 0.5, 0.02, 100
 
     algorithms.eaSimple(pop, toolbox, cxpb, mutpb, ngen, stats=stats, halloffame=hof, verbose=True)
 

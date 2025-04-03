@@ -29,11 +29,12 @@ def calc_rat(agents, x, y):
     # Calculate ratio of neighbors with the same color as the current agent.
     current = agents[x, y]
     # Build a list of valid neighbor values (skipping self and empty cells)
+    small_nasobilka = [x*y for x in range(1, 10) for y in range(1, 10)]
     neighbors = [
         agents[i % N, j % N]
         for i in range(x - 1, x + 1 + 1)
-        for j in range(y - 1, y + 1 + 1)
-        if not (i == x and j == y) and agents[i % N, j % N] != EMPTY
+            for j in range(y - 1, y + 1 + 1)
+                if not (i == x and j == y) and agents[i % N, j % N] != EMPTY
     ]
     if not neighbors:
         return 0
@@ -79,7 +80,7 @@ def update_one_agent(agents, pos, sad_agents):
                 change_agent_mood(agents, [i % N, j % N], sad_agents)
     return agents
 
-def update_agents_in_1(agents, sad_agents, x, y):
+def update_agent_neighbours(agents, sad_agents, x, y):
     # Update every agent in the neighborhood (using periodic boundaries).
     for i in range(x - 1, x + 1 + 1):
         for j in range(y - 1, y + 1 + 1):
@@ -99,8 +100,8 @@ def make_happy(agents, sad_agents, null_agents):
         # Update lists: mark the old position as empty.
         null_agents.append(sad)
         # Update neighbors for both affected cells.
-        update_agents_in_1(agents, sad_agents, sad[0], sad[1])
-        update_agents_in_1(agents, sad_agents, empty[0], empty[1])
+        update_agent_neighbours(agents, sad_agents, sad[0], sad[1])
+        update_agent_neighbours(agents, sad_agents, empty[0], empty[1])
         null_agents.remove(empty)
         sad_agents.remove(sad)
         num_happy_agents.append(N*N - len(sad_agents) - len(null_agents))

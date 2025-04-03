@@ -1,5 +1,5 @@
-N = 100
-UNTOL = 0.7
+N = 20
+UNTOL = 0.3
 
 EMPTY = 0
 PURPLE_SAD = 1
