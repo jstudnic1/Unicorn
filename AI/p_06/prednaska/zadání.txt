@@ -1,0 +1,6 @@
+Evoluční učení neuronové sítě
+naimplementujte vlastní sentorické funkce, kterými budou agenti vnímat prosředí
+navrhněte funkci nn_function(inp, wei), která na základě vstupů inp a vektoru vah wei neuronové sítě (genomu neuronové sítě / zlinearizované sítě) provede výpočet výstupů této sítě
+navrhněte funkci nn_navigate_me(me, inp), která pro agenta me a jeho senzorické vstupy inp provede výpočet jeho pohybu na základě jeho vnitřního genomu reprezentujícího jeho neuronovou síť (zda pojede up, down, left, right)
+doimplementujte mechanismus výpočtu fitness jedinců ve funkci handle_mes_fitnesses(mes), která dostane seznam jedinců mes a vypočítá jim fitness na základě jednoho herního kola
+nastavte vhodně parametry evolučního algoritmu (mutace, crossover, selekce)
