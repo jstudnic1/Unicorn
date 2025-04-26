@@ -22,7 +22,7 @@ Podle toho rozeznáváme:
   - $\mathbf{y}_i \in \mathbb{R}^m$ je požadovaný výstup.
 
 
-![Obrázek 56 – Trénovací data](#)
+![Obrázek 56 – Trénovací data](../../imgs_for_readme/training_with_teacher/trénovací%20data.png)
 
 ### Cíl učení
 
@@ -53,7 +53,7 @@ $$ E = \sum_{i=1}^{N} E_i $$
   4. Aktualizovat váhy: $\theta \leftarrow \theta - \eta \, \nabla_{\theta} E$, kde $\eta$ je učicí konstanta.
   5. Iterovat, dokud chyba neklesne pod zvolenou hranici.
 
-![Obrázek 58 – Krajina chybové funkce](#)
+![Obrázek 58 – Krajina chybové funkce](../../imgs_for_readme/training_with_teacher/krajina_chybové_funkce..png)
 
 ### Vlastnosti
 
@@ -110,7 +110,7 @@ $$ E = \sum_{i=1}^{N} E_i $$
 - Příliš mnoho neuronů \(\to\) příliš složitá síť.
 - Příliš málo neuronů \(\to\) underfitting.
 
-![Obrázek 59 – Underfitting vs. Overfitting](#)
+![Obrázek 59 – Underfitting vs. Overfitting](../../imgs_for_readme/training_with_teacher/Underfitting_overfitting..png)
 
 ---
 
@@ -118,7 +118,7 @@ $$ E = \sum_{i=1}^{N} E_i $$
 
 - **Early stopping**: rozdělit data na trénink a validaci, zastavit dříve, než se začne růst chyba na validaci.
 
-![Obrázek 60 – Early Stopping](#)
+![Obrázek 60 – Early Stopping](../../imgs_for_readme/training_with_teacher/early_stopping.png)
 
 - **Regularizace**
   - L1 a L2 penalizace váhových hodnot.
